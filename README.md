@@ -93,4 +93,6 @@ Les données sont stockées dans MongoDB, exploitées avec des agrégations, pui
 |**HTML/CSS/JS** | Interface du dashboard   |
 |**Node.js/Express** | API REST si back-end |
 
+
+📸 Aperçu du dashboard
 ---
