@@ -6,7 +6,9 @@
 
 ## 🔍 Contexte du projet
 
-Ce projet vise à analyser les **facteurs qui influencent la réussite scolaire** des élèves, à partir d’un dataset réel.  
+Le ministère de l’Éducation souhaite mieux comprendre les facteurs sociaux et pédagogiques qui influencent la performance scolaire des élèves.
+L’objectif est d’identifier les leviers d’action pour améliorer l’équité et la réussite.
+Ce projet vise donc à analyser les **facteurs qui influencent la réussite scolaire** des élèves, à partir d’un dataset réel.  
 L’objectif est de mettre en évidence :
 - L’impact du **cours de préparation**
 - Les inégalités selon le **genre**, le **niveau d’éducation des parents**, et le **groupe ethnique**
