@@ -1,0 +1,61 @@
+// 1. Quelle est la moyenne générale par matière (mathématiques, lecture, écriture) ?
+db.students.aggregate([
+  {
+    $project: {
+      math: "$math score",   // Renommage de la note en mathématiques
+      reading: "$reading score",  // Renommage de la note en lecture
+      writing: "$writing score"   // Renommage de la note en écriture
+    }
+  },
+  {
+    $group: {
+      _id: null,  // Aucun groupe spécifique, nous calculons la moyenne globale
+      avg_math: { $avg: "$math" },  // Moyenne des notes de mathématiques
+      avg_reading: { $avg: "$reading" },  // Moyenne des notes de lecture
+      avg_writing: { $avg: "$writing" }  // Moyenne des notes d'écriture
+    }
+  }
+]).pretty()
+
+//2. Distribution des notes (min, max, écart-type)
+db.students.aggregate([
+  {
+    $project: {
+      math: "$math score",   // Renommage de la note en mathématiques
+      reading: "$reading score",  // Renommage de la note en lecture
+      writing: "$writing score"   // Renommage de la note en écriture
+    }
+  },
+  {
+    $group: {
+      _id: null,  // Vue globale sans groupe spécifique
+      max_math: { $max: "$math" },  // Valeur maximale des notes en mathématiques
+      min_math: { $min: "$math" },  // Valeur minimale des notes en mathématiques
+      stddev_math: { $stdDevPop: "$math" },  // Écart-type des notes en mathématiques
+
+      max_reading: { $max: "$reading" },  // Valeur maximale des notes en lecture
+      min_reading: { $min: "$reading" },  // Valeur minimale des notes en lecture
+      stddev_reading: { $stdDevPop: "$reading" },  // Écart-type des notes en lecture
+
+      max_writing: { $max: "$writing" },  // Valeur maximale des notes en écriture
+      min_writing: { $min: "$writing" },  // Valeur minimale des notes en écriture
+      stddev_writing: { $stdDevPop: "$writing" }  // Écart-type des notes en écriture
+    }
+  }
+]).pretty()
+
+// 3. Élèves les plus performants (Top 10%)
+db.students.aggregate([
+  {
+    $project: {
+      // Calcul de la moyenne des trois matières pour chaque élève
+      average_score: { $avg: ["$math score", "$reading score", "$writing score"] },
+    }
+  },
+  {
+    $sort: { average_score: -1 }  // Tri par score moyen de manière décroissante
+  },
+  {
+    $limit: Math.ceil(db.students.count() * 0.1)  // Sélection des 10% meilleurs élèves
+  }
+]).pretty()
